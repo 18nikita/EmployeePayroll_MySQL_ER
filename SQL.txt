@@ -358,3 +358,148 @@ Records: 0  Duplicates: 0  Warnings: 0
 |  3 | Charlie |         NULL | NULL    |            | M      |         0 |          0 |           0 |   0 |       0 | 300000 | 2020-05-21 |
 |  4 | Terisa  |         NULL | NULL    |            | F      |         0 |          0 |           0 |   0 |       0 | 400000 | 2018-08-26 |
 +----+---------+--------------+---------+------------+--------+-----------+------------+-------------+-----+---------+--------+------------+
+
+#UC10
+ MySQL  localhost:3306 ssl  payroll_service  SQL > insert into payroll_service(ID,NAME,phone_number,address,department,GENDER,basic_pay,deduction,texable_pay,tax,net_pay,SALARY,START_DATE) values
+                                                -> (4,"Terissa",NULL,NULL,"Marketing",'F',0,0,0,0,0,400000,2021-08-26);
+ERROR: 1292 (22007): Incorrect date value: '1987' for column 'START_DATE' at row 1
+ MySQL  localhost:3306 ssl  payroll_service  SQL > insert into payroll_service(ID,NAME,phone_number,address,department,GENDER,basic_pay,deduction,texable_pay,tax,net_pay,SALARY,START_DATE) values (4,"Terissa",NULL,NULL,"Marketing",'F',0,0,0,0,0,400000,"2021-08-26");
+ERROR: 1062 (23000): Duplicate entry '4' for key 'payroll_service.PRIMARY'
+ MySQL  localhost:3306 ssl  payroll_service  SQL > insert into payroll_service(NAME,phone_number,address,department,GENDER,basic_pay,deduction,texable_pay,tax,net_pay,SALARY,START_DATE) values ("Terissa",NULL,NULL,"Marketing",'F',0,0,0,0,0,400000,"2021-08-26");
+Query OK, 1 row affected (0.1263 sec)
+ MySQL  localhost:3306 ssl  payroll_service  SQL > select * from payroll_service;
++----+---------+--------------+---------+------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+| ID | NAME    | phone_number | address | department | GENDER | basic_pay | deduction | texable_pay | tax | net_pay | SALARY | START_DATE |
++----+---------+--------------+---------+------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+|  1 | Bill    |         NULL | NULL    |            | M      |         0 |         0 |           0 |   0 |       0 | 100000 | 2018-10-03 |
+|  2 | Mark    |         NULL | NULL    |            | M      |         0 |         0 |           0 |   0 |       0 | 200000 | 2019-10-03 |
+|  3 | Charlie |         NULL | NULL    |            | M      |         0 |         0 |           0 |   0 |       0 | 300000 | 2020-05-21 |
+|  4 | Terissa |         NULL | NULL    |            | F      |         0 |         0 |           0 |   0 |       0 | 400000 | 2021-08-26 |
+|  5 | Terissa |         NULL | NULL    | Marketing  | F      |         0 |         0 |           0 |   0 |       0 | 400000 | 2021-08-26 |
++----+---------+--------------+---------+------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+5 rows in set (0.0010 sec)
+ MySQL  localhost:3306 ssl  payroll_service  SQL > delete from payroll_service
+                                                -> where
+                                                -> id IN (4);
+Query OK, 1 row affected (0.1295 sec)
+ MySQL  localhost:3306 ssl  payroll_service  SQL > select * from payroll_service;
++----+---------+--------------+---------+------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+| ID | NAME    | phone_number | address | department | GENDER | basic_pay | deduction | texable_pay | tax | net_pay | SALARY | START_DATE |
++----+---------+--------------+---------+------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+|  1 | Bill    |         NULL | NULL    |            | M      |         0 |         0 |           0 |   0 |       0 | 100000 | 2018-10-03 |
+|  2 | Mark    |         NULL | NULL    |            | M      |         0 |         0 |           0 |   0 |       0 | 200000 | 2019-10-03 |
+|  3 | Charlie |         NULL | NULL    |            | M      |         0 |         0 |           0 |   0 |       0 | 300000 | 2020-05-21 |
+|  5 | Terissa |         NULL | NULL    | Marketing  | F      |         0 |         0 |           0 |   0 |       0 | 400000 | 2021-08-26 |
++----+---------+--------------+---------+------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+4 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  payroll_service  SQL > insert into payroll_service(NAME,phone_number,address,department,GENDER,basic_pay,deduction,texable_pay,tax,net_pay,SALARY,START_DATE) values ("Terissa",NULL,NULL,"Sales",'F',0,0,0,0,0,0,"0");
+ERROR: 1292 (22007): Incorrect date value: '0' for column 'START_DATE' at row 1
+ MySQL  localhost:3306 ssl  payroll_service  SQL > insert into payroll_service(NAME,phone_number,address,department,GENDER,basic_pay,deduction,texable_pay,tax,net_pay,SALARY,START_DATE) values ("Terissa",NULL,NULL,"Sales",'F',0,0,0,0,0,0,"2021-08-26");
+Query OK, 1 row affected (0.1325 sec)
+ MySQL  localhost:3306 ssl  payroll_service  SQL > select * from payroll_service;
++----+---------+--------------+---------+------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+| ID | NAME    | phone_number | address | department | GENDER | basic_pay | deduction | texable_pay | tax | net_pay | SALARY | START_DATE |
++----+---------+--------------+---------+------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+|  1 | Bill    |         NULL | NULL    |            | M      |         0 |         0 |           0 |   0 |       0 | 100000 | 2018-10-03 |
+|  2 | Mark    |         NULL | NULL    |            | M      |         0 |         0 |           0 |   0 |       0 | 200000 | 2019-10-03 |
+|  3 | Charlie |         NULL | NULL    |            | M      |         0 |         0 |           0 |   0 |       0 | 300000 | 2020-05-21 |
+|  5 | Terissa |         NULL | NULL    | Marketing  | F      |         0 |         0 |           0 |   0 |       0 | 400000 | 2021-08-26 |
+|  6 | Terissa |         NULL | NULL    | Sales      | F      |         0 |         0 |           0 |   0 |       0 |      0 | 2021-08-26 |
++----+---------+--------------+---------+------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+5 rows in set (0.0007 sec)
+--------------------------------------------------------------------------------------------------------------------------------------#UC11
+ MySQL  localhost:3306 ssl  payroll_service  SQL > alter table payroll_service add EMPLOYEE_ID int after NAME;
+Query OK, 0 rows affected (2.2673 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  payroll_service  SQL > alter table payroll_service add DEPARTMENT_ID int after department;
+Query OK, 0 rows affected (1.5797 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+--------------------------------------------------------------------------------------------------------------------------------------
+#UC12
+ MySQL  localhost:3306 ssl  payroll_service  SQL > select * from payroll_service;
++----+---------+-------------+--------------+---------+------------+---------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+| ID | NAME    | EMPLOYEE_ID | phone_number | address | department | DEPARTMENT_ID | GENDER | basic_pay | deduction | texable_pay | tax | net_pay | SALARY | START_DATE |
++----+---------+-------------+--------------+---------+------------+---------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+|  1 | Bill    |        NULL |         NULL | NULL    |            |          NULL | M      |         0 |         0 |           0 |   0 |       0 | 100000 | 2018-10-03 |
+|  2 | Mark    |        NULL |         NULL | NULL    |            |          NULL | M      |         0 |         0 |           0 |   0 |       0 | 200000 | 2019-10-03 |
+|  3 | Charlie |        NULL |         NULL | NULL    |            |          NULL | M      |         0 |         0 |           0 |   0 |       0 | 300000 | 2020-05-21 |
+|  5 | Terissa |        NULL |         NULL | NULL    | Marketing  |          NULL | F      |         0 |         0 |           0 |   0 |       0 | 400000 | 2021-08-26 |
+|  6 | Terissa |        NULL |         NULL | NULL    | Sales      |          NULL | F      |         0 |         0 |           0 |   0 |       0 |      0 | 2021-08-26 |
++----+---------+-------------+--------------+---------+------------+---------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+5 rows in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  payroll_service  SQL > select * from Payroll_Service where START_DATE between cast("2018-01-01" as date) and date (NOW());
++----+---------+-------------+--------------+---------+------------+---------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+| ID | NAME    | EMPLOYEE_ID | phone_number | address | department | DEPARTMENT_ID | GENDER | basic_pay | deduction | texable_pay | tax | net_pay | SALARY | START_DATE |
++----+---------+-------------+--------------+---------+------------+---------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+|  1 | Bill    |        NULL |         NULL | NULL    |            |          NULL | M      |         0 |         0 |           0 |   0 |       0 | 100000 | 2018-10-03 |
+|  2 | Mark    |        NULL |         NULL | NULL    |            |          NULL | M      |         0 |         0 |           0 |   0 |       0 | 200000 | 2019-10-03 |
+|  3 | Charlie |        NULL |         NULL | NULL    |            |          NULL | M      |         0 |         0 |           0 |   0 |       0 | 300000 | 2020-05-21 |
+|  5 | Terissa |        NULL |         NULL | NULL    | Marketing  |          NULL | F      |         0 |         0 |           0 |   0 |       0 | 400000 | 2021-08-26 |
+|  6 | Terissa |        NULL |         NULL | NULL    | Sales      |          NULL | F      |         0 |         0 |           0 |   0 |       0 |      0 | 2021-08-26 |
++----+---------+-------------+--------------+---------+------------+---------------+--------+-----------+-----------+-------------+-----+---------+--------+------------+
+5 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  payroll_service  SQL > select SUM(SALARY) FROM payroll_service where gender='F' group by gender;
++-------------+
+| SUM(SALARY) |
++-------------+
+|      400000 |
++-------------+
+1 row in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  payroll_service  SQL > select AVG(SALARY) FROM payroll_service where gender='F' group by gender;
++-------------+
+| AVG(SALARY) |
++-------------+
+|      200000 |
++-------------+
+1 row in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  payroll_service  SQL > select MIN(SALARY) FROM payroll_service where gender='F' group by gender;
++-------------+
+| MIN(SALARY) |
++-------------+
+|           0 |
++-------------+
+1 row in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  payroll_service  SQL > select MAX(SALARY) FROM payroll_service where gender='F' group by gender;
++-------------+
+| MAX(SALARY) |
++-------------+
+|      400000 |
++-------------+
+1 row in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  payroll_service  SQL > select COUNT(SALARY) FROM payroll_service where gender='F' group by gender;
++---------------+
+| COUNT(SALARY) |
++---------------+
+|             2 |
++---------------+
+1 row in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  payroll_service  SQL > select COUNT(SALARY) FROM payroll_service where gender='F' group by gender;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
